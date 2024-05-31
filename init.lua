@@ -646,6 +646,14 @@ require('lazy').setup({
         graphql = {},
         omnisharp = {},
         powershell_es = {},
+        terraformls = {
+          settings = {
+            terraform = {
+              path = nil,
+            },
+          },
+        },
+        helm_ls = {},
         --
 
         lua_ls = {
@@ -675,10 +683,18 @@ require('lazy').setup({
 
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
-      local ensure_installed = vim.tbl_keys(servers or {})
+      -- local ensure_installed = vim.tbl_keys(servers or {})
+      local ensure_installed = {}
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
       })
+      for name, server_opts in pairs(servers) do
+        local current = { name }
+        if server_opts.version ~= nil then
+          current.version = server_opts.version
+        end
+        vim.list_extend(ensure_installed, { current })
+      end
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -689,6 +705,14 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+
+            if server_name == 'terraformls' then
+              local opentofu_path_result = vim.system({ 'where', 'tofu' }, { text = true }):wait()
+              if opentofu_path_result.code == 0 then
+                server.settings.terraform.path = opentofu_path_result.stdout
+              end
+            end
+
             require('lspconfig')[server_name].setup(server)
           end,
         },
