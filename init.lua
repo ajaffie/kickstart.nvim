@@ -424,7 +424,27 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        defaults = {
+          path_display = {
+            shorten = 'smart',
+            -- shorten = {
+            --   len = 2,
+            --   exclude = { 1, -2, -1 },
+            -- },
+          },
+          file_ignore_patterns = { '.git\\.*' },
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+          live_grep = {
+            additional_args = { '--hidden', '-g', '!**/.git/**' },
+          },
+          grep_string = {
+            additional_args = { '--hidden', '-g', '!**/.git/**' },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
