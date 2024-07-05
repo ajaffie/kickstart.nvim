@@ -671,6 +671,7 @@ require('lazy').setup({
           },
         },
         zls = {},
+        taplo = {},
       }
 
       -- Ensure the servers and tools above are installed
