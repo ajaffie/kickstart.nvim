@@ -663,6 +663,9 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         eslint = {},
+        css_variables = {},
+        cssls = {},
+        cssmodules_ls = {},
         graphql = {},
         omnisharp = {},
         powershell_es = {},
@@ -779,6 +782,7 @@ require('lazy').setup({
         javascript = { 'prettier' },
         javascriptreact = { 'prettier' },
         graphql = { 'prettier' },
+        css = { 'prettier' },
       },
     },
   },
