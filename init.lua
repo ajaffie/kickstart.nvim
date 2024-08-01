@@ -665,7 +665,11 @@ require('lazy').setup({
         eslint = {},
         css_variables = {},
         cssls = {},
-        cssmodules_ls = {},
+        cssmodules_ls = {
+          init_options = {
+            camelCase = false,
+          },
+        },
         graphql = {},
         omnisharp = {},
         powershell_es = {},
