@@ -502,6 +502,8 @@ require('lazy').setup({
     },
   },
   { 'Bilal2453/luvit-meta', lazy = true },
+  -- detects helm charts
+  { 'towolf/vim-helm', ft = 'helm' },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -684,7 +686,15 @@ require('lazy').setup({
             },
           },
         },
-        helm_ls = {},
+        helm_ls = {
+          settings = {
+            ['helm-ls'] = {
+              yamlls = {
+                path = 'yaml-language-server',
+              },
+            },
+          },
+        },
         --
 
         lua_ls = {
@@ -703,6 +713,11 @@ require('lazy').setup({
         },
         zls = {},
         taplo = {},
+        yamlls = {
+          settings = {
+            filetypes = { 'yaml', 'yml' },
+          },
+        },
       }
 
       -- Ensure the servers and tools above are installed
